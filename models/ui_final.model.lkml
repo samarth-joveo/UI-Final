@@ -11,6 +11,7 @@ datagroup: ui_final_default_datagroup {
 
 persist_with: ui_final_default_datagroup
 explore: view_grouped_tracking_event {
+
   join: client_info {
     sql_on: ${client_info.client_id} = ${view_grouped_tracking_event.client_id} ;;
     relationship: many_to_one
