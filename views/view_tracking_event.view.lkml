@@ -42,7 +42,7 @@ end time_category,
       else 0
     end) as Hires
 from tracking.modelled.view_tracking_event
-where agency_id = 'uber' and date(event_publisher_date) >=  date('2023-01-01')
+where date(event_publisher_date) >=  date('2023-01-01')
 and date(event_publisher_date) <=  current_date
 and should_contribute_to_joveo_stats = TRUE
 group by agency_id,client_id,campaign_id,job_group_id,publisher_id,event_publisher_date,job_city,job_state,job_country,case
@@ -75,6 +75,10 @@ end;;
   dimension: event_publisher_date {
     type: date
     sql: ${TABLE}.event_publisher_date ;;
+  }
+  dimension: publisher_id {
+    type: string
+    sql: ${TABLE}.publisher_id ;;
   }
   dimension: job_city {
     type: string

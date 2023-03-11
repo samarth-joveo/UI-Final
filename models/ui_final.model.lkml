@@ -15,6 +15,14 @@ explore: view_grouped_tracking_event {
     sql_on: ${client_info.client_id} = ${view_grouped_tracking_event.client_id} ;;
     relationship: many_to_one
   }
+  join: campaign_info {
+    sql_on: ${campaign_info.campaign_id} = ${view_grouped_tracking_event.campaign_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_info {
+    sql_on: ${jg_info.job_group_id} = ${view_grouped_tracking_event.job_group_id} ;;
+    relationship: many_to_one
+  }
 }
 explore: view_tracking_event {
   join: location_normalisation {
@@ -25,4 +33,13 @@ explore: view_tracking_event {
     sql_on: ${client_info.client_id} = ${view_tracking_event.client_id} ;;
     relationship: many_to_one
   }
+  join: campaign_info {
+    sql_on: ${campaign_info.campaign_id} = ${view_tracking_event.campaign_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_info {
+    sql_on: ${jg_info.job_group_id} = ${view_tracking_event.job_group_id} ;;
+    relationship: many_to_one
+  }
+
 }

@@ -1,5 +1,5 @@
 view: view_grouped_tracking_event {
-derived_table: {sql: select client_id,campaign_id,job_group_id,event_publisher_date,monthname(event_publisher_date) month_name,
+derived_table: {sql: select client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date) month_name,
      sum(clicks) as CLICKS,
    sum(applies) as APPLIES,
    sum(apply_starts) as Apply_Starts,
@@ -7,10 +7,9 @@ derived_table: {sql: select client_id,campaign_id,job_group_id,event_publisher_d
     sum(cd_spend)
    as CD_SPEND
 FROM   tracking.modelled.view_grouped_combined_events
-       WHERE  agency_id='uber'
-       and event_publisher_date >= date('2023-01-01')
+       WHERE event_publisher_date >= date('2023-01-01')
        and should_contribute_to_joveo_stats = TRUE
-GROUP  BY client_id,campaign_id,job_group_id,event_publisher_date,monthname(event_publisher_date);;}
+GROUP  BY client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date);;}
 dimension: client_id {
   type: string
   sql: ${TABLE}.client_id ;;
@@ -31,13 +30,17 @@ dimension: client_id {
     type: string
     sql: ${TABLE}.month_name ;;
   }
+  dimension: publisher_id {
+    type: string
+    sql: ${TABLE}.publisher_id ;;
+  }
   measure: clicks {
     type: sum
     sql: ${TABLE}.clicks ;;
   }
   measure: applies {
     type: sum
-    sql: ${TABLE}.clicks ;;
+    sql: ${TABLE}.applies ;;
   }
   measure: apply_starts {
     type: sum
