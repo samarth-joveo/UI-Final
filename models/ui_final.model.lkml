@@ -11,6 +11,14 @@ datagroup: ui_final_default_datagroup {
 
 persist_with: ui_final_default_datagroup
 explore: view_grouped_tracking_event {
+  access_filter: {
+    field: agency_id
+    user_attribute: access_agencies
+  }
+  access_filter: {
+    field: client_id
+    user_attribute: access_clients
+  }
 
   join: client_info {
     sql_on: ${client_info.client_id} = ${view_grouped_tracking_event.client_id} ;;
@@ -26,6 +34,14 @@ explore: view_grouped_tracking_event {
   }
 }
 explore: view_tracking_event {
+  access_filter: {
+    field: agency_id
+    user_attribute: access_agencies
+  }
+  access_filter: {
+    field: client_id
+    user_attribute: access_clients
+  }
   join: location_normalisation {
     sql_on: ${location_normalisation.job_city} = ${view_tracking_event.job_city} and ${location_normalisation.job_state} = ${view_tracking_event.job_state} and ${location_normalisation.job_country} = ${view_tracking_event.job_country} ;;
     relationship: many_to_one

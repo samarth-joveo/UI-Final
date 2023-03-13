@@ -9,4 +9,12 @@ view: client_info {
     type: string
     sql: ${TABLE}.name ;;
   }
+  dimension: budget_value {
+    type: number
+    sql: ${TABLE}.budget_value ;;
+  }
+  dimension: budget_cap_frequency {
+    type: string
+    sql: ${TABLE}.budget_cap_frequency ;;
+  }
  }

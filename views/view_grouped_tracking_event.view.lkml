@@ -1,5 +1,5 @@
 view: view_grouped_tracking_event {
-derived_table: {sql: select client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date) month_name,
+derived_table: {sql: select agency_id,client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date) month_name,
      sum(clicks) as CLICKS,
    sum(applies) as APPLIES,
    sum(apply_starts) as Apply_Starts,
@@ -9,7 +9,11 @@ derived_table: {sql: select client_id,campaign_id,job_group_id,event_publisher_d
 FROM   tracking.modelled.view_grouped_combined_events
        WHERE event_publisher_date >= date('2023-01-01')
        and should_contribute_to_joveo_stats = TRUE
-GROUP  BY client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date);;}
+GROUP  BY agency_id,client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date);;}
+  dimension: agency_id {
+    type: string
+    sql: ${TABLE}.agency_id ;;
+  }
 dimension: client_id {
   type: string
   sql: ${TABLE}.client_id ;;

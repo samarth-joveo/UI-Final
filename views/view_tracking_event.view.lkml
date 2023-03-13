@@ -60,6 +60,10 @@ end;;
     type: string
     sql: ${TABLE}.time_category ;;
   }
+  dimension: agency_id {
+    type: string
+    sql: ${TABLE}.agency_id ;;
+  }
   dimension: client_id {
     type: string
     sql: ${TABLE}.client_id ;;
