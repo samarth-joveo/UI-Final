@@ -10,10 +10,9 @@ select 1 budget_merge,* from client_budget join campaign_budget join jg_budget_o
     type: number
     sql: ${TABLE}.budget_merge ;;
   }
-  parameter: agency_id {
+  filter: agency_id {
     type: string
-    suggest_explore: view_grouped_tracking_event
-    suggest_dimension: view_grouped_tracking_event.agency_id
+    sql: ${view_grouped_tracking_event.agency_id} ;;
   }
 dimension: client_name {
   type: string

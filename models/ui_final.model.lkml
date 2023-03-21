@@ -33,8 +33,8 @@ explore: view_grouped_tracking_event {
     relationship: many_to_one
   }
   join: budget_cap_aggregated {
-    sql_on: ${view_grouped_tracking_event.budget_merge} = ${budget_cap_aggregated.budget_merge} ;;
-    relationship: many_to_many
+    sql_on: ${budget_cap_aggregated.budget_merge} = ${view_grouped_tracking_event.budget_merge} ;;
+    relationship: many_to_one
   }
 }
 explore: view_tracking_event {
@@ -72,3 +72,4 @@ explore: view_grouped_tracking_event_with_job_count {
     relationship: many_to_one
   }
 }
+explore: spend_with_budget_caps {}
