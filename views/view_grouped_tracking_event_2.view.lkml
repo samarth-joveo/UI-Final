@@ -1,21 +1,21 @@
-view: view_grouped_tracking_event {
-derived_table: {sql: select agency_id,client_id,campaign_id,job_group_id,event_publisher_date,publisher_id,monthname(event_publisher_date) month_name,
-      CLICKS,
-   APPLIES,
-   Apply_Starts,
-       HIRES,
-     CD_SPEND
+view: view_grouped_tracking_event_2 {
+  derived_table: {sql: select agency_id,client_id,campaign_id,job_group_id,event_publisher_date,
+      sum(CLICKS) clicks,
+   sum(APPLIES) applies,
+   sum(Apply_Starts) apply_starts,
+       sum(HIRES) hires,
+     sum(CD_SPEND) cd_spend
 FROM   tracking.modelled.view_grouped_combined_events
        WHERE event_publisher_date >= date('2023-01-01')
-       and should_contribute_to_joveo_stats = TRUE;;}
+       and should_contribute_to_joveo_stats = TRUE group by agency_id,client_id,campaign_id,job_group_id,event_publisher_date ;;}
   dimension: agency_id {
     type: string
     sql: ${TABLE}.agency_id ;;
   }
-dimension: client_id {
-  type: string
-  sql: ${TABLE}.client_id ;;
-}
+  dimension: client_id {
+    type: string
+    sql: ${TABLE}.client_id ;;
+  }
   dimension: campaign_id {
     type: string
     sql: ${TABLE}.campaign_id ;;
@@ -27,14 +27,6 @@ dimension: client_id {
   dimension: event_publisher_date {
     type: date
     sql: ${TABLE}.event_publisher_date ;;
-  }
-  dimension: month_name {
-    type: string
-    sql: ${TABLE}.month_name ;;
-  }
-  dimension: publisher_id {
-    type: string
-    sql: ${TABLE}.publisher_id ;;
   }
   measure: clicks {
     type: sum
@@ -68,4 +60,4 @@ dimension: client_id {
     type: number
     sql: iff(${clicks}=0,0,${applies}/${clicks}) ;;
   }
- }
+}

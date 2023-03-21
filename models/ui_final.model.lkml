@@ -1,6 +1,6 @@
 # Define the database connection to be used for this model.
 connection: "idp"
-include: "../Views/*"
+include: "../views/*"
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
 
@@ -33,8 +33,8 @@ explore: view_grouped_tracking_event {
     relationship: many_to_one
   }
   join: budget_cap_aggregated {
-    sql_on: ${budget_cap_aggregated.current_date} = ${view_grouped_tracking_event.event_publisher_date} ;;
-    relationship: many_to_one
+    sql_on: ${view_grouped_tracking_event.budget_merge} = ${budget_cap_aggregated.budget_merge} ;;
+    relationship: many_to_many
   }
 }
 explore: view_tracking_event {
@@ -65,3 +65,10 @@ explore: view_tracking_event {
 
 }
 explore: budget_cap {}
+explore: view_grouped_tracking_event_with_job_count {
+  from: view_grouped_tracking_event_2
+  join: jb_cnt {
+    sql_on: ${view_grouped_tracking_event_with_job_count.agency_id} = ${jb_cnt.agency_id} and ${view_grouped_tracking_event_with_job_count.client_id} = ${jb_cnt.client_id} and ${view_grouped_tracking_event_with_job_count.campaign_id} = ${jb_cnt.campaign_id} and ${view_grouped_tracking_event_with_job_count.job_group_id} = ${jb_cnt.job_group_id} and ${view_grouped_tracking_event_with_job_count.event_publisher_date} = ${jb_cnt.date}  ;;
+    relationship: many_to_one
+  }
+}
