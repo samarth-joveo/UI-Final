@@ -1,6 +1,11 @@
 view: view_grouped_tracking_event_3 {
   sql_table_name: tracking.modelled.view_grouped_combined_events;;
 
+  dimension: tracking_events_pk {
+    primary_key: yes
+    sql: CONCAT(${TABLE}.device_type, ${TABLE}.job_group_id, ${TABLE}.publisher_id, ${TABLE}.event_publisher_date) ;;
+  }
+
   dimension: agency_id {
     type: string
     sql: ${TABLE}.agency_id ;;
