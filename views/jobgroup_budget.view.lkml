@@ -10,6 +10,7 @@ view: jobgroup_budget {
     sql: ${TABLE}.client_id ;;
   }
   dimension: jobgroup_id {
+    primary_key: yes
     type: string
     sql: ${TABLE}.jobgroup_id ;;
   }
