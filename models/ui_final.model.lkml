@@ -39,7 +39,8 @@ explore: view_grouped_tracking_event {
     relationship: many_to_one
   }
 }
-explore: view_grouped_tracking_event_3 {
+explore: stats_with_budget_cap {
+  from:  view_grouped_tracking_event_3
   access_filter: {
     field: agency_id
     user_attribute: access_agencies
@@ -51,16 +52,16 @@ explore: view_grouped_tracking_event_3 {
 
   persist_with: ui_final_default_datagroup
 
-  join: client_info {
-    sql_on: ${client_info.client_id} = ${view_grouped_tracking_event_3.client_id} ;;
+  join: client_info_2 {
+    sql_on: ${client_info_2.client_id} = ${stats_with_budget_cap.client_id} ;;
     relationship: many_to_one
   }
-  join: campaign_info {
-    sql_on: ${campaign_info.campaign_id} = ${view_grouped_tracking_event_3.campaign_id} ;;
+  join: campaign_info_2 {
+    sql_on: ${campaign_info_2.campaign_id} = ${stats_with_budget_cap.campaign_id} ;;
     relationship: many_to_one
   }
-  join: jg_info {
-    sql_on: ${jg_info.job_group_id} = ${view_grouped_tracking_event_3.job_group_id} ;;
+  join: jobgroup_budget {
+    sql_on: ${jobgroup_budget.jobgroup_id} = ${stats_with_budget_cap.job_group_id} ;;
     relationship: many_to_one
   }
 }
