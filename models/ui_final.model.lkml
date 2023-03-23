@@ -5,8 +5,9 @@ include: "../views/*"
 # use the Quick Help panel on the right to see documentation.
 
 datagroup: ui_final_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  # sql_trigger: SELECT MAX(id) FROM etl_log;; we should select the hotstore table number here
   max_cache_age: "1 hour"
+  interval_trigger: "1 hour"
 }
 
 persist_with: ui_final_default_datagroup
@@ -19,6 +20,7 @@ explore: view_grouped_tracking_event {
     field: client_id
     user_attribute: access_clients
   }
+  persist_with: ui_final_default_datagroup
 
   join: client_info {
     sql_on: ${client_info.client_id} = ${view_grouped_tracking_event.client_id} ;;
@@ -46,6 +48,7 @@ explore: view_tracking_event {
     field: client_id
     user_attribute: access_clients
   }
+  persist_with: ui_final_default_datagroup
   join: location_normalisation {
     sql_on: ${location_normalisation.job_city} = ${view_tracking_event.job_city} and ${location_normalisation.job_state} = ${view_tracking_event.job_state} and ${location_normalisation.job_country} = ${view_tracking_event.job_country} ;;
     relationship: many_to_one
@@ -66,6 +69,7 @@ explore: view_tracking_event {
 }
 explore: budget_cap {}
 explore: view_grouped_tracking_event_with_job_count {
+  persist_with: ui_final_default_datagroup
   from: view_grouped_tracking_event_2
   join: jb_cnt {
     sql_on: ${view_grouped_tracking_event_with_job_count.agency_id} = ${jb_cnt.agency_id} and ${view_grouped_tracking_event_with_job_count.client_id} = ${jb_cnt.client_id} and ${view_grouped_tracking_event_with_job_count.campaign_id} = ${jb_cnt.campaign_id} and ${view_grouped_tracking_event_with_job_count.job_group_id} = ${jb_cnt.job_group_id} and ${view_grouped_tracking_event_with_job_count.event_publisher_date} = ${jb_cnt.date}  ;;
