@@ -39,6 +39,32 @@ explore: view_grouped_tracking_event {
     relationship: many_to_one
   }
 }
+explore: view_grouped_tracking_event_3 {
+  access_filter: {
+    field: agency_id
+    user_attribute: access_agencies
+  }
+  access_filter: {
+    field: client_id
+    user_attribute: access_clients
+  }
+
+  persist_with: ui_final_default_datagroup
+
+  join: client_info {
+    sql_on: ${client_info.client_id} = ${view_grouped_tracking_event_3.client_id} ;;
+    relationship: many_to_one
+  }
+  join: campaign_info {
+    sql_on: ${campaign_info.campaign_id} = ${view_grouped_tracking_event_3.campaign_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_info {
+    sql_on: ${jg_info.job_group_id} = ${view_grouped_tracking_event_3.job_group_id} ;;
+    relationship: many_to_one
+  }
+}
+
 explore: view_tracking_event {
   access_filter: {
     field: agency_id
