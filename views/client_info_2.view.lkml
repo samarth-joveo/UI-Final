@@ -15,7 +15,7 @@ view: client_info_2 {
   }
   dimension: client_budget{
     type: number
-    sql: ${TABLE}.client_budget ;;
+    sql: ${TABLE}.budget_value ;;
   }
   measure: client_budget_sum {
     type: sum

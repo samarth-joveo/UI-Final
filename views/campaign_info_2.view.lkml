@@ -20,7 +20,7 @@ view: campaign_info_2 {
   }
   dimension: campaign_budget{
     type: number
-    sql: ${TABLE}.budget ;;
+    sql: ${TABLE}.budget_value ;;
   }
   measure: campaign_budget_sum {
     type: sum
