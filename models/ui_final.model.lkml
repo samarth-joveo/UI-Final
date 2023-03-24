@@ -73,3 +73,38 @@ explore: view_grouped_tracking_event_with_job_count {
   }
 }
 explore: spend_with_budget_caps {}
+explore: stats_source_wise {}
+explore: view_grouped_tracking_event_3 {
+
+  from: view_grouped_tracking_event
+  join: client_info {
+    sql_on: ${client_info.client_id} = ${view_grouped_tracking_event_3.client_id} ;;
+    relationship: many_to_one
+  }
+  join: campaign_info {
+    sql_on: ${campaign_info.campaign_id} = ${view_grouped_tracking_event_3.campaign_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_info {
+    sql_on: ${jg_info.job_group_id} = ${view_grouped_tracking_event_3.job_group_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_budget {
+    sql_on: ${jg_budget.job_group_id} = ${view_grouped_tracking_event_3.job_group_id} ;;
+    relationship: many_to_one
+  }
+}
+explore: stats_derived {
+  join: client_view_budget {
+    sql_on: ${client_view_budget.client_id} = ${stats_derived.client_id}  ;;
+    relationship: many_to_one
+  }
+  join: cam_view_budget {
+    sql_on: ${cam_view_budget.campaign_id} = ${stats_derived.campaign_id} ;;
+    relationship: many_to_one
+  }
+  join: jg_budget {
+    sql_on: ${jg_budget.job_group_id} = ${stats_derived.job_group_id} ;;
+    relationship: many_to_one
+  }
+}
